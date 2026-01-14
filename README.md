@@ -1,6 +1,39 @@
 # GrabMySeat – Concurrent Seat Booking System
 
  ### Author: Geety Ara Chowdhury
+
+## Problem Statement
+Real-world ticket booking systems (BookMyShow, Confirmtkt) face extreme concurrency when multiple users attempt to book the same seat simultaneously.
+
+##### Common failure scenarios:
+* Double booking
+* Lost updates
+* Overselling inventory
+* Database thread exhaustion
+
+## Overview
+GrabMySeat is designed to simulate and safely handle these scenarios using non-blocking concurrency control.
+
+## The project focuses on:
+* High-concurrency seat booking
+* Data consistency under race conditions
+* Seat hold with expiry
+* Optimistic locking & retry mechanisms
+* Scheduled cleanup of expired holds
+
+## High-Level Architecture
+```text
+Client Request
+     ↓
+REST Controller
+     ↓
+Transactional Service Layer
+     ↓
+JPA Repository (Optimistic Locking)
+     ↓
+H2 Database (Demo)
+```
+
 ### Tech Stack:
 * Java 21
 * Spring Boot
@@ -9,15 +42,29 @@
 * JUnit 5
 * GitHub Actions (CI)
 
-## Overview
-GrabMySeat is a backend system inspired by real-world ticket booking platforms like BookMyShow.
+## Seat State Lifecycle
 
-## The project focuses on:
-* High-concurrency seat booking
-* Data consistency under race conditions
-* Seat hold with expiry
-* Optimistic locking & retry mechanisms
-* Scheduled cleanup of expired holds
+```text
+ AVAILABLE  -> HOLD  -> BOOKED
+     ↑           |
+     └───────────┘  (on expiry / release)
+```
+
+
+### Why Optimistic Locking?
+* Avoids database-level blocking
+* Scales better under high traffic
+* Ideal for read-heavy booking systems
+  
+  Implementation:
+* @Version field on Seat entity
+* Version mismatch triggers retry
+*Only one transaction succeeds
+
+### Pessimistic locking was intentionally avoided to prevent:
+   * Thread starvation
+   * Reduced throughput
+   * Poor throughput during traffic spikes
 
 ## Core Features
  1. Seat Hold with Expiry
@@ -43,14 +90,6 @@ GrabMySeat is a backend system inspired by real-world ticket booking platforms l
     * Simulates multiple users attempting to book the same seat
     * Ensures only one booking succeeds
 
-
-## Seat State Lifecycle
-
-```text
- AVAILABLE  -> HOLD  -> BOOKED
-     ↑           |
-     └───────────┘  (on expiry / release)
-```
 ## Database Model
  **Seat:**
    * id (Long)
@@ -98,15 +137,6 @@ GrabMySeat is a backend system inspired by real-world ticket booking platforms l
    * Runs on every push & pull request
    * Uses Java 21 (Temurin)
    * Executes mvn clean verify
-
-### Why Optimistic Locking?
-* Avoids database-level blocking
-* Scales better under high traffic
-* Ideal for read-heavy booking systems
-
-### Pessimistic locking was intentionally avoided to prevent:
-   * Thread starvation
-   * Reduced throughput
      
 ## How to Run
 1. Clone the repository
