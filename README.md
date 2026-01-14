@@ -19,8 +19,6 @@ GrabMySeat is a backend system inspired by real-world ticket booking platforms l
 * Optimistic locking & retry mechanisms
 * Scheduled cleanup of expired holds
 
-This project demonstrates production-grade backend design and is suitable as a 5+ years experience portfolio project.
-
 ## Core Features
  1. Seat Hold with Expiry
     * Seats can be temporarily held for a configurable time
