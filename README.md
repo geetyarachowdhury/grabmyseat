@@ -22,26 +22,26 @@ GrabMySeat is a backend system inspired by real-world ticket booking platforms l
 This project demonstrates production-grade backend design and is suitable as a 5+ years experience portfolio project.
 
 ## Core Features
- **1. Seat Hold with Expiry**
+ 1. Seat Hold with Expiry
     * Seats can be temporarily held for a configurable time
     * Hold automatically expires if not confirmed
 
- **2. Confirm Booking**
+ 2. Confirm Booking
     * Only held seats can be confirmed
     * Prevents double booking
 
- **3. Optimistic Locking**
+ 3. Optimistic Locking
     * Uses @Version to detect concurrent updates
     * Prevents lost updates without blocking DB threads
 
- **4. Retry Mechanism**
+ 4. Retry Mechanism
     * Automatically retries on optimistic lock failures
     * Mimics real BookMyShow-style retry behavior
 
- **5. Scheduled Cleanup**
+ 5. Scheduled Cleanup
     * Background job releases expired seat holds
 
- **6. Concurrency Testing**
+ 6. Concurrency Testing
     * Simulates multiple users attempting to book the same seat
     * Ensures only one booking succeeds
 
@@ -111,14 +111,14 @@ This project demonstrates production-grade backend design and is suitable as a 5
    * Reduced throughput
      
 ## How to Run
-```text
- 1. Clone the repository
+1. Clone the repository
 2. Ensure Java 21 is installed
- 3. Run the application:
-
-       mvn spring-boot:run
-
- 4. Access H2 Console:
+3. Run the application:
+   ```bash
+   mvn spring-boot:run
+   ```
+5. Access H2 Console:
+```bash
        http://localhost:8080/h2-console
 ```
 #### Future Enhancements
