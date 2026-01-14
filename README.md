@@ -1,7 +1,7 @@
 # GrabMySeat – Concurrent Seat Booking System
 
- **Author:** Geety Ara Chowdhury
-**Tech Stack:**
+ ### Author: Geety Ara Chowdhury
+### Tech Stack:
 * Java 21
 * Spring Boot
 * Spring Data JPA
