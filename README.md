@@ -101,13 +101,13 @@ H2 Database (Demo)
 ## REST APIs
 ```text
  Hold Seat
-   POST /seats/hold/{seatId}?seconds=10
+   POST /api/seats/hold/{seatId}?seconds=10
 
  Confirm Booking
-   POST /seats/confirm/{seatId}
+   POST /api/seats/confirm/{seatId}
 
  Release Seat (Manual Cancel)
-   POST /seats/release/{seatId}
+   POST /api/seats/release/{seatId}
 ```
 ## Concurrency Handling
  * Optimistic locking using @Version
