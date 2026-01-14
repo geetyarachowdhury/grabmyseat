@@ -56,10 +56,10 @@ H2 Database (Demo)
 * Scales better under high traffic
 * Ideal for read-heavy booking systems
   
-  Implementation:
+**Implementation:**
 * @Version field on Seat entity
 * Version mismatch triggers retry
-*Only one transaction succeeds
+* Only one transaction succeeds
 
 ### Pessimistic locking was intentionally avoided to prevent:
    * Thread starvation
